@@ -634,9 +634,9 @@ In Mathlib, the machinery for what Axler terms Direct Sums is more general than 
 Linear Algebra Done right.
 
 Mathlib uses the fact that the submodules of a module form a complete lattice to generalize the proofs
-around modules to proofs of lattice structures; in particular, Mathlib uses the ⊔ (least upper bound)
+around modules to proofs of lattice structures; in particular, Mathlib uses the `⊔` (least upper bound)
 operator, or lattice join, to represent sums of submodules. What Axler terms the Direct Sum is,
-in Mathlib, the statement that the least upper bound of submodules is ⊤ (AKA the submodule
+in Mathlib, the statement that the least upper bound of submodules is `⊤` (AKA the submodule
 identical to the module) along with the assertion that the submodules are disjoint.
 
 These last two are packaged as `IsCompl` -- this definition is equivalent to the defintion in 1.46
