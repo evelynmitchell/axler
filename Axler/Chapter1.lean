@@ -656,10 +656,10 @@ For uniquness, let's first prove that a difference of vectors in one of a pair o
 equal another difference in the other pair if the vectors are equal (that is, if the difference is zero)
 -/
 
-variable {F : Type*} {M : Type*}
-variable [Field F] [AddCommGroup M] [Module F M]
+variable {R : Type*} {M : Type*}
+variable [Ring R] [AddCommGroup M] [Module R M]
 
-lemma sub_eq_iff {y y' z z' : M} {p : Submodule F M} {p' : Submodule F M} (h': IsCompl p p')
+lemma sub_eq_iff {y y' z z' : M} {p : Submodule R M} {p' : Submodule R M} (h': IsCompl p p')
   (ymem: y ∈ p) (y'mem: y' ∈ p) (zmem: z ∈ p') (z'mem: z' ∈ p'):
    y - y' = z - z' ↔ y = y' ∧ z = z' := by
   constructor
@@ -680,7 +680,7 @@ lemma sub_eq_iff {y y' z z' : M} {p : Submodule F M} {p' : Submodule F M} (h': I
 Given that lemma, we can do some algebra to prove uniqueness
 -/
 
-example {x y y' z z' : M} {p : Submodule F M} {p' : Submodule F M}
+example {x y y' z z' : M} {p : Submodule R M} {p' : Submodule R M}
  (hymem: y ∈ p) (hy'mem: y' ∈ p) (hzmem: z ∈ p') (hz'mem: z' ∈ p') (h': IsCompl p p') :
   y + z = x ∧ y' + z' = x → y = y' ∧ z = z' := by
   rintro ⟨h1, h2⟩
