@@ -641,9 +641,56 @@ identical to the module) along with the assertion that the submodules are disjoi
 
 These last two are packaged as `IsCompl` -- this definition is equivalent to the defintion in 1.46
 
-Note that there's a `DirectSum` in Mathlib with `⨁`, but it's simpler *not* to use the notation.
+Note that there's a `DirectSum` in Mathlib with `⨁`, but this is *not* the correct definition.
 
+Since we are already using the definition in 1.46, we'd like to recover the Axler definition. As Axler
+puts it: "The sum `𝑉_1 + ... + 𝑉_𝑚` is called a direct sum if each element of `𝑉_1 + ... + 𝑉_𝑚` can
+be written in only one way as a sum `𝑣_1 + ... + 𝑣_𝑚`, where each `𝑣_𝑘 ∈ 𝑉_𝑘`"
+
+We'd like to prove existence and uniqueness of the sum. Existence is already given for us in Mathlib:
 -/
+#check Submodule.mem_sup
+
+/-
+For uniquness, let's first prove that a difference of vectors in one of a pair of disjoint subspaces can only
+equal another difference in the other pair if the vectors are equal (that is, if the difference is zero)
+-/
+
+variable {F : Type*} {M : Type*}
+variable [Field F] [AddCommGroup M] [Module F M]
+
+lemma sub_eq_iff {y y' z z' : M} {p : Submodule F M} {p' : Submodule F M} (h': IsCompl p p')
+  (ymem: y ∈ p) (y'mem: y' ∈ p) (zmem: z ∈ p') (z'mem: z' ∈ p'):
+   y - y' = z - z' ↔ y = y' ∧ z = z' := by
+  constructor
+  . intro h
+    have ysubmem: y - y' ∈ p := Submodule.sub_mem p ymem y'mem
+    have zsubmem: z - z' ∈ p' := Submodule.sub_mem p' zmem z'mem
+    constructor <;> by_contra hne
+    . have hysubne: y - y' ≠ 0 := sub_ne_zero.mpr hne
+      have := (Submodule.disjoint_def.mp h'.disjoint) _ ysubmem (by rwa [h])
+      contradiction
+    . have hysubne: z - z' ≠ 0 := sub_ne_zero.mpr hne
+      have := (Submodule.disjoint_def.mp (Disjoint.symm h'.disjoint)) _ zsubmem (by rwa [←h])
+      contradiction
+  . rintro ⟨rfl, rfl⟩
+    simp only [sub_self]
+
+/-
+Given that lemma, we can do some algebra to prove uniqueness
+-/
+
+example {x y y' z z' : M} {p : Submodule F M} {p' : Submodule F M}
+ (hymem: y ∈ p) (hy'mem: y' ∈ p) (hzmem: z ∈ p') (hz'mem: z' ∈ p') (h': IsCompl p p') :
+  y + z = x ∧ y' + z' = x → y = y' ∧ z = z' := by
+  rintro ⟨h1, h2⟩
+  rw [← eq_sub_iff_add_eq] at h1
+  rw [← h2, sub_eq_add_neg, add_comm, add_comm y', ← add_assoc, ← neg_neg y',
+      ←sub_eq_add_neg, @eq_sub_iff_add_eq _ _ y ( -z + z'),
+       add_comm (-z), ←sub_eq_add_neg, ←sub_eq_add_neg] at h1
+  have := (sub_eq_iff h' hymem hy'mem hz'mem hzmem).mp h1
+  exact ⟨this.left, this.right.symm⟩
+
 
 /-
 #### Example 1.42
