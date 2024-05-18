@@ -748,3 +748,31 @@ theorem ex1_42_Disjoint: Disjoint (ex1_42_U F) (ex1_42_V F) := by
 def ex1_42_isCompl: IsCompl (ex1_42_U F) (ex1_42_V F)  where
   disjoint := ex1_42_Disjoint _
   codisjoint := codisjoint_iff.mpr (ex1_42_join_eq_top F)
+
+/-
+#### Example 1.43
+
+Suppose `V_𝑘` is the subspace of `F^𝑛` of those vectors whose coordinates are all
+0, except possibly in the `𝑘`th slot; for example, `𝑉_2 = {(0,𝑥,0,...,0) ∈ 𝐅𝑛 ∶ 𝑥 ∈ 𝐅}`. Then
+
+`𝐅^𝑛 = 𝑉_1 ⊕ ⋯ ⊕ 𝑉_n`
+
+Fortunately for us, the vectors Axler describes for the canonical or standard basis of `F^n`,
+and the canonical basis is packaged as `Pi.basisFun`, which generates function that takes any `k`
+and produces a vector that's just as Axler describes.
+
+From there, all we need to show is that the subspace generated out of those vectors is `⊤`
+-/
+example (n : ℕ) : Submodule.span F (Set.range ⇑(Pi.basisFun F (Fin n))) = ⊤ :=
+  (Pi.basisFun F (Fin n)).span_eq
+
+/-
+But that might seem unsatisfying. A closer map to the Axler formulation would be to model out
+the indexed `Submodule` sum (via `⊔`) - this is the `iSup` formulation in Mathlib. The
+formulation `F ∙ (Pi.basisFun F (Fin n) k)` is the span over `F` of the canonical basis vector at
+`k`, which is the subspace Axler describes. With a single rewrite, this ends up the same as the
+proof above.
+-/
+
+example (n : ℕ) : (⨆ k, F ∙ (Pi.basisFun F (Fin n) k)) = ⊤ := by
+  rw [← Submodule.span_range_eq_iSup, (Pi.basisFun F (Fin n)).span_eq]
