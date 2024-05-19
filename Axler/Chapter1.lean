@@ -653,7 +653,12 @@ We'd like to prove existence and uniqueness of the sum. Existence is already giv
 
 /-
 For uniquness, let's first prove that a difference of vectors in one of a pair of disjoint subspaces can only
-equal another difference in the other pair if the vectors are equal (that is, if the difference is zero)
+equal another difference in the other pair if the vectors are equal (that is, if the difference is zero).
+On paper, this would be simple: if they were not identical, their difference would be non-zero, but that would
+mean there's some common non-zero vector in both subspaces, which violates our assumptiom that
+the subspaces are disjoint.
+
+In Mathlib, this goes through `Submodule.disjoint_def`
 -/
 
 variable {R : Type*} {M : Type*}
