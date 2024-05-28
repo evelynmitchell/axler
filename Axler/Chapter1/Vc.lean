@@ -80,6 +80,7 @@ instance: AddCommMonoid (Vc V) where
     ext
     . rw [add_r, add_r, add_comm]
     . rw [add_i, add_i, add_comm]
+  nsmul := nsmulRec
 
 
 namespace complex

@@ -3,13 +3,13 @@ import Mathlib.Algebra.NeZero
 import Mathlib.Logic.IsEmpty
 import Mathlib.Data.Real.EReal
 import Mathlib.Algebra.Field.Basic
-import Mathlib.LinearAlgebra.TensorProduct
+--import Mathlib.LinearAlgebra.TensorProduct
 import Mathlib.LinearAlgebra.TensorProduct.Prod
 import Mathlib.Algebra.Module.Equiv
 import Mathlib.Topology.Defs.Basic
 import Mathlib.Topology.Basic
 import Mathlib.Topology.Algebra.Monoid
-import Mathlib.Data.Set.Intervals.Basic
+--import Mathlib.Data.Set.Intervals.Basic
 import Mathlib.Algebra.Module.Submodule.Pointwise
 import Mathlib.Data.Fin.VecNotation
 import Axler.Chapter1.MyComplex

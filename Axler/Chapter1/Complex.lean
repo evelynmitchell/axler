@@ -12,15 +12,15 @@ Axler 1.3, using Mathlib to show the basic properties
 ## Commutativity
 𝛼 + 𝛽 = 𝛽 + 𝛼 and 𝛼𝛽 = 𝛽𝛼 for all 𝛼, 𝛽 ∈ 𝐂
 -/
-example {x y : ℂ}: x + y = y + x := Complex.instCommSemiringComplex.add_comm x y
-example {x y : ℂ}: x * y = y * x := Complex.instCommSemiringComplex.mul_comm x y
+example {x y : ℂ}: x + y = y + x := add_comm x y
+example {x y : ℂ}: x * y = y * x := mul_comm x y
 
 /-
 ## Associativity
 (𝛼 + 𝛽) + 𝜆 = 𝛼 + (𝛽 + 𝜆) and (𝛼𝛽)𝜆 = 𝛼(𝛽𝜆) for all 𝛼, 𝛽, 𝜆 ∈ 𝐂
 -/
-example {x y z: ℂ}: x + y + z = x + (y + z) := Complex.instCommSemiringComplex.add_assoc x y z
-example {x y z: ℂ}: x * y * z = x * (y * z) := Complex.instCommSemiringComplex.mul_assoc x y z
+example {x y z: ℂ}: x + y + z = x + (y + z) := add_assoc x y z
+example {x y z: ℂ}: x * y * z = x * (y * z) := mul_assoc x y z
 
 /--
 ## Identities
